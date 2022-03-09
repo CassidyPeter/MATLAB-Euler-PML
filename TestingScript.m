@@ -1,6 +1,4 @@
 
-% MCC for matlab compiler
-
 rng(0)
 clc; clear; close all;
 
