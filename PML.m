@@ -2,8 +2,8 @@ classdef PML < handle
 
     properties
         %%% Domain info
-        xmin, ymin % coordinate of bottom left corner (real number)
-        Lx, Ly % domain physical size (Euler + PML) (real number)
+        xmin, ymin % Coordinate of bottom left corner (real number)
+        Lx, Ly % Domain physical size (Euler + PML) (real number)
         Nx, Ny % Grid resolution (integer)
         Ix, Iy, I
 
