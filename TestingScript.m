@@ -24,14 +24,14 @@ pml.sigmax = 1;
 pml.sigmay = 1;
 pml.setupPML();
 
-% Initial conditions - Gaussian pulse
-epsilon = 1; % perturbation amplitude
-r0 = 9 / log(2); % Characteristic dimension of pulse (variance)
-r0 = 0.1;
-x0 = 1.5; % Source position
-y0 = 1.5; % Source position
-pml.p = epsilon * exp(-(((pml.X-x0).^2 + (pml.Y-y0).^2)/r0));
-pml.p(pml.sxarr'~=0 | pml.syarr~=0) = 0;
+% % Initial conditions - Gaussian pulse
+% epsilon = 1; % perturbation amplitude
+% r0 = 9 / log(2); % Characteristic dimension of pulse (variance)
+% r0 = 0.1;
+% x0 = 1.5; % Source position
+% y0 = 1.5; % Source position
+% pml.p = epsilon * exp(-(((pml.X-x0).^2 + (pml.Y-y0).^2)/r0));
+% pml.p(pml.sxarr'~=0 | pml.syarr~=0) = 0;
 % pml.rho = pml.p;
 % pml.u = zeros(size(pml.I));
 % pml.v = pml.u;
@@ -53,15 +53,13 @@ pml.v = -epsilon * (pml.X-x0) .* exp(-(((pml.X-x0).^2 + (pml.Y-y0).^2)/r0));
 pml.v(pml.sxarr'~=0 | pml.syarr~=0) = 0;
 
 
-itermax = ceil(T/pml.dt);
-tt = (1:itermax)*pml.dt;
-errrec = nan(itermax,1);
 
 % Initialise video
 myVideo = VideoWriter('PMLTestVideo');
 myVideo.FrameRate = 10;
 open(myVideo)
 
+% Initialise graphics
 hfsol = figure;
 hsol = surf(pml.vec2grid(pml.X),...
              pml.vec2grid(pml.Y),...
@@ -71,7 +69,11 @@ cameratoolbar
 axis([pml.xmin,pml.xmin+pml.Lx,pml.ymin,pml.ymin+pml.Ly,-1,1])
 light
 drawnow
-% 
+
+itermax = ceil(T/pml.dt);
+tt = (1:itermax)*pml.dt;
+errrec = nan(itermax,1);
+
 for iter = 1:itermax
     fprintf(['Iteration ' num2str(iter) ' out of ' num2str(itermax) '\n'])
     pml.DRPStep(iter)
