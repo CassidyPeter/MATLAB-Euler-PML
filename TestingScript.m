@@ -55,19 +55,23 @@ pml.v(pml.sxarr'~=0 | pml.syarr~=0) = 0;
 
 
 % Initialise video
-myVideo = VideoWriter('PMLTestVideo');
-myVideo.FrameRate = 10;
-open(myVideo)
+% myVideo = VideoWriter('PMLTestVideo');
+% myVideo.FrameRate = 10;
+% open(myVideo)
 
 % Initialise graphics
 hfsol = figure;
-hsol = surf(pml.vec2grid(pml.X),...
+% hsol = surf(pml.vec2grid(pml.X),...
+%              pml.vec2grid(pml.Y),...
+%             double( pml.vec2grid(pml.rho) ));
+% set(hsol,'edgecolor','none')
+[~,hsol] = contour(pml.vec2grid(pml.X),...
              pml.vec2grid(pml.Y),...
-            double( pml.vec2grid(pml.p) ));
-set(hsol,'edgecolor','none')
+            double( pml.vec2grid(pml.rho) ));
 cameratoolbar
 axis([pml.xmin,pml.xmin+pml.Lx,pml.ymin,pml.ymin+pml.Ly,-1,1])
 light
+colorbar
 drawnow
 
 itermax = ceil(T/pml.dt);
@@ -77,13 +81,13 @@ errrec = nan(itermax,1);
 for iter = 1:itermax
     fprintf(['Iteration ' num2str(iter) ' out of ' num2str(itermax) '\n'])
     pml.DRPStep(iter)
-    set(hsol,'ZData',double(pml.vec2grid(pml.u)))
+    set(hsol,'ZData',double(pml.vec2grid(pml.rho)))
     drawnow
     pause(0.01)
 
-    frame = getframe(gcf);
-    writeVideo(myVideo,frame);
+%     frame = getframe(gcf);
+%     writeVideo(myVideo,frame);
 
 end
 
-close(myVideo)
+% close(myVideo)
