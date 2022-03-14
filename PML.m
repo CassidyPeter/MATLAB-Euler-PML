@@ -48,7 +48,7 @@ classdef PML < handle
         kpstorage
 
         % DRP and RK coefficients
-        b0, b1, b2, b3
+        b1, b2, b3, b4, b5, b6
 %         a0, a1, a2, a3
         a
 
@@ -162,6 +162,7 @@ classdef PML < handle
             pml.syarr(pml.Iy > pml.Ny-pml.Py) = pml.tempvar2;
 
 
+
         end
 
         %%% Derivative functions
@@ -266,6 +267,7 @@ classdef PML < handle
             pml.q4storage(1,:) = 0;
         end
 
+        tic
         % Main loop. At each grid point, calculate intermediate k and then time derivative to get field variables at time n+1. Ghost nodes handled in DRP
         % functions
         for m=1:pml.ylen
@@ -334,10 +336,10 @@ classdef PML < handle
                     + pml.b5 * pml.pstorage(5,idx)...
                     + pml.b6 * pml.pstorage(6,idx) ); % LDDRK6
 
-
             end
 
         end
+        fprintf('Iteration %i DRP elapsed time: %.3f seconds \n', timelevel, toc')
 
         % Reassign storage for time marching scheme (shift down so row 1 is
         % assigned to row 2 etc. Then put current variable in at row 1 (for
@@ -354,6 +356,7 @@ classdef PML < handle
         pml.kustorage = [zeros(1,length(pml.kustorage)); pml.kustorage(1:end-1,:)];
         pml.kvstorage = [zeros(1,length(pml.kvstorage)); pml.kvstorage(1:end-1,:)];
         pml.kpstorage = [zeros(1,length(pml.kpstorage)); pml.kpstorage(1:end-1,:)];
+
 
         end
 
