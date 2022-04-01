@@ -1,6 +1,8 @@
 # MATLAB-Euler-PML
 ## Perfectly Matched Layer for Linearised Euler Equations
 
+Code developed as part of Master's research project
+
 ### Overview
 
 - Linearised Euler Equations in 2D with mean flow in x-direction
