@@ -1,7 +1,7 @@
 # MATLAB-Euler-PML
-## Perfectly Matched Layer for Linearised Euler Equations
+## Perfectly Matched Layer BC for Linearised Euler Equations
 
-Code developed as part of Master's research project (heavily WIP, code tends to diverge towards end of simulation - could be numerical instability or implementation error)
+Code developed as part of Master's research project (heavily WIP)
 
 ### Overview
 
